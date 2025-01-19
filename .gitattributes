@@ -1,2 +1,143 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//  المركبة
+typedef struct {
+    int id;                // رقم تعريف المركبة
+    char type[50];         // نوع المركبة
+    char start[50];        // مكان الانطلاق
+    char destination[50];  // مكان الوصول
+} Vehicle;
+
+
+Vehicle vehicles[3];
+int vehicleCount = 0;
+
+// دالة لإضافة مركبة
+void addVehicle() {
+    if (vehicleCount < 3) {
+        printf(" identification number ");
+        scanf("%d", &vehicles[vehicleCount].id);
+        printf("enter the type:");
+        scanf("%s", vehicles[vehicleCount].type);
+        printf("enter Enter the car's starting location:");
+        scanf("%s", vehicles[vehicleCount].start);
+        printf("enter Enter the vehicle's arrival location: ");
+        scanf("%s", vehicles[vehicleCount].destination);
+        
+        vehicleCount++;
+        printf("\n vehicule added\n");
+        
+    } else {
+
+        printf("\nMaximum capacity reached.\n");
+    }
+}
+
+// دالة لحذف مركبة
+void deleteVehicle() {
+    int id;
+    printf("\n Enter the vehicle identification number you want to delete: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < vehicleCount; i++) {
+        if (vehicles[i].id == id) {
+            
+            for (int j = i; j < vehicleCount - 1; j++) {
+                vehicles[j] = vehicles[j + 1];
+            }
+            vehicleCount--;
+            printf("\nThe vehicle has been successfully deleted!\n");
+            return;
+        }
+    }
+    printf("\nNo vehicle was found with this identification number.\n");
+}
+
+// دالة للبحث عن مركبة
+void searchVehicle() {
+    int id;
+    printf("\nEnter the vehicle identification number you want to search for: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < vehicleCount; i++) {
+        if (vehicles[i].id == id) {
+            printf("\nVehicle found:\n");
+            printf("Identification number: %d\n", vehicles[i].id);
+            printf("type: %s\n", vehicles[i].type);
+            printf("starting location: %s\n", vehicles[i].start);
+            printf("arrival location: %s\n",vehicles[i].destination);
+        }
+    else{
+        printf("\nNo vehicle was found with this identification number.\n");}
+        
+    }        
+}
+
+void traffic_jam() {
+    char t[50];
+ char type1 []="ambulance";
+ char type2[]="motorcycle";
+ char type3[]="car";
+ char type4[]="bicycle";
+ char type5[]="a truck";
+    printf("\n  ambulance,motorcycle ,car ,bicycle ,a truck  \n  ");
+    printf("\n Choose the type of vehicle on the road: \n ");
+    scanf("%s", t);
+if (strcmp(t, type1) == 0) {
+        printf("**Priority warning for this vehicle**,The vehicle must be taken to the far right .\n");
+    } else if (strcmp(t, type2) == 0) {
+        printf("The vehicle must take the right side\n");
+    } else if (strcmp(t, type3) == 0) {
+        printf("The vehicle must take the left side\n");
+    } else if (strcmp(t, type4) == 0) {
+        printf("The vehicle must be taken to the far left side\n");
+    } else {
+        printf("The entered type is not recognized.\n");
+    }
+       
+}        
+// الدالة الرئيسية
+int main() {
+
+ int choice,i;
+ printf("how many time you want return the program");
+scanf("%d",&i);
+    while (i<20) { 
+        printf("\n###### Vehicle management system ######\n");
+        printf("1.Add vehicle\n");
+        printf("2. Delete a vehicle\n");
+        printf("3. Search for a vehicle\n");
+        printf("4. How to solve a traffic jam\n");
+        printf("Choose an option: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addVehicle();
+                break;
+            case 2:
+                deleteVehicle();
+                break;
+            case 3:
+                searchVehicle();
+                break;
+                
+            case 4:
+                 traffic_jam();
+                 break;
+             case 5:
+                printf("\n The program has terminated \n");
+               
+            default:
+                printf("\nInvalid option. Try again.\n");
+
+    
+        }
+     i++;    
+
+    }
+    
+return 0;
+}
